@@ -32,16 +32,12 @@ public class ShoppingCartRestController {
     }
 
     @PatchMapping("/{productId}/books")
-    public String addProductToCart(@PathVariable Long productId) {
-        try{
-            ShoppingCart shoppingCart = this.shoppingCartService.addProductToShoppingCart(
-                    this.authService.getCurrentUserId(),
-                    productId
-            );
-        }catch ( RuntimeException ex ){
-            return "redirect:/books?error="+ex.getLocalizedMessage();
-        }
-        return "redirect:/books";
+    public ShoppingCart addProductToCart(@PathVariable Long productId) {
+        return this.shoppingCartService.addProductToShoppingCart(
+                this.authService.getCurrentUserId(),
+                productId
+        );
+
     }
 
     @DeleteMapping("/{productId}/books")
